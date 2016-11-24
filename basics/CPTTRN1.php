@@ -7,22 +7,22 @@ function generateRow($len, $parzysta){
 	return ($parzysta) ? substr($s2, 0, $len) : substr($s1, 0, $len); 
 }
 
-fscanf(STDIN,"%d",$loops);
+fscanf(STDIN,"%d",$t);
 $out = "";
 
-while($loops-- > 0) {
-	fscanf(STDIN, "%d %d", $rows, $cols);
+while($t-- > 0) {
+	fscanf(STDIN, "%d %d", $r, $c);
 	$parzysta = FALSE;
 	
-	while($rows--) {
-		$row = generateRow($cols, $parzysta);
+	while($r--) {
+		$row = generateRow($c, $parzysta);
 		$out .= $row;
 		$out .= "\n";
 		
 		$parzysta = !$parzysta;
 	}	
 
-	if($loops>0) {
+	if($t>0) {
 		$out .= "\n";
 	}
 }

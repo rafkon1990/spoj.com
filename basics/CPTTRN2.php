@@ -1,86 +1,34 @@
 <?php
 
-/*
-
-Using two characters: . (dot) and * (asterisk) print a frame-like pattern.
-
-Input
-
-You are given:
-t - the number of test cases and for each of the test cases two positive integers:
-l - the number of lines
-c - the number of columns of a frame
-
-Output
-
-For each of the test cases output the requested pattern (please have a look at the example).
-Use one line break in between successive patterns.
-
-Example
-
-Input:
-3
-3 1
-4 4
-2 5
-
-Output:
-*
-*
-*
-
-****
-*..*
-*..*
-****
-
-
-*****
-*****
-
-*/
-
 function generateRow($length, $inherit = false){
-    if($length < 3) {
-        return (
-        ($length === 2) ?
-        "**" :
-        (
-        ($length === 1)
-        ?"*"
-        :""
-        )
-        );
-    }
-    
-    if(!$inherit) {
+    if(!$inherit OR $length < 3) {
         return str_repeat("*", $length);
     }
     
-    $side = "*";
-    return $side . str_repeat(".", $length-2).$side;
+    return "*" . str_repeat(".", $length-2) . "*";
 }
 
-fscanf(STDIN,"%d",$loops);
+fscanf(STDIN,"%d",$t);
 $out = "";
 
-while($loops-- > 0) {
-    fscanf(STDIN, "%d %d", $rows, $cols);
-    $rowsTemp = $rows;
+while($t-- > 0) {
+    fscanf(STDIN, "%d %d", $r, $c);
+    $rTemp = $r;
     
-    $row =  generateRow($cols, false);
-    $rowInherit = generateRow($cols, true);
-    while($rowsTemp) {
-        if($cols < 3 OR $rows < 3) {
+    $row =  generateRow($c, false);
+    $rowInherit = generateRow($c, true);
+    while($rTemp) {
+        if($c < 3 OR $r < 3) {
             $out .= $row;
         } else {
-            $out.= ($rowsTemp % $rows === 0 OR $rowsTemp == 1) ? $row : $rowInherit;
+            $out.= ($rTemp % $r === 0 OR $rTemp == 1) ? $row : $rowInherit;
         }
-        $rowsTemp--;
+        
+        $rTemp--;
         $out .= "\n";
     }
     
-    if($loops>0) {
+    if($t > 0) {
         $out .= "\n";
     }
 }
