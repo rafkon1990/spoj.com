@@ -58,7 +58,7 @@ Output:
 r c w h
 2 5 2 2
 
-**************** = (w + 1) *  (2 + 1) 
+**************** = (w + 1) * c +1
 *..*..*..*..*..* = h (2) powtórzeń liń
 *..*..*..*..*..* = c (5) powtórzeń kolumn
 .. (w) ilość kropek
@@ -71,33 +71,37 @@ function generateSideLine($size) {
     return str_repeat("***", $size) . "*";
 }
 
-function generateGrid($r, $h, $w) {
-    global $newLine;
-    $out = "";
-    
-
-    
-    return $out;
+function generateStarsRow($c, $w) {
+    return str_repeat("*", ($w + 1) * $c + 1);
 }
 
-// fscanf(STDIN,"%d",$t);
+function generateRow($c, $w) {
+    return str_repeat("*" . str_repeat("." , $w), $c) . "*";
+}
 
-$t = $_GET["t"];
-$r = $_GET["r"];
-$c = $_GET["c"];
-$h = $_GET["h"];
-$w = $_GET["w"];
+fscanf(STDIN,"%d",$t);
+
+// $t = $_GET["t"];
+// $r = $_GET["r"];
+// $c = $_GET["c"];
+// $h = $_GET["h"];
+// $w = $_GET["w"];
 
 while($t-- > 0) {
-    // fscanf(STDIN, "%d %d %d %d", $r, $c, $h, $w);
+    fscanf(STDIN, "%d %d %d %d", $r, $c, $h, $w);
     $rTemp = $r;
-
+    $stars = generateStarsRow($c, $w) . $newLine;
+    $row = generateRow($c, $w) . $newLine;
     while($rTemp--) {
-       
+       $out .= $stars;
+       for($i = $h; $i > 0; $i--) {
+           $out .= $row;
+       }
     }
+    $out .= $stars;
     
     if($t > 0) {
-        $out .= "\n";
+        $out .= $newLine;
     }
 }
 
